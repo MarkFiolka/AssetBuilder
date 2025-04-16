@@ -4,10 +4,11 @@ using UnityEngine.Rendering;
 public class Settings : MonoBehaviour
 {
     public static Settings Instance { get; private set; }
-    
+
     public Color color { get; set; } = Color.white;
     public Color placementGridPreviewColor { get; set; } = Color.gray;
     public Color placementPreviewColor { get; set; } = Color.gray;
+    public Color selectColor { get; set; } = Color.magenta;
     public bool placementGridPreview { get; set; } = false;
     public bool placeBlocks { get; set; } = false;
     public bool breakBlocks { get; set; } = false;
@@ -15,7 +16,7 @@ public class Settings : MonoBehaviour
     public bool placementPreview { get; set; } = false;
     public bool halfPlacement { get; set; } = false;
     public bool selectCubes { get; set; } = false;
-    
+
 
     private void Awake()
     {
@@ -32,7 +33,9 @@ public class Settings : MonoBehaviour
 
     public void setMode(string mode)
     {
-        placeBlocks = breakBlocks = colorBlocks = selectCubes = false;        
+        placeBlocks = breakBlocks = colorBlocks = selectCubes = false;
+        
+        //Disable other like select when swapping
 
         switch (mode)
         {
@@ -53,18 +56,16 @@ public class Settings : MonoBehaviour
         }
     }
 
-    public void setColor(string hexColor)
+    public void setColor(Color hexColor)
     {
-        if (ColorUtility.TryParseHtmlString(hexColor, out Color parsedColor))
-        {
-            color = parsedColor;
-        }
-        else
-        {
-            Debug.LogError($"Invalid color string: {hexColor}");
-        }
+        color = hexColor;
     }
-    
+
+    public void setSelectColor(Color hexColor)
+    {
+        selectColor = hexColor;
+    }
+
     public void setPlacementGridPreviewColor(string hexColor)
     {
         if (ColorUtility.TryParseHtmlString(hexColor, out Color parsedColor))
@@ -76,7 +77,7 @@ public class Settings : MonoBehaviour
             Debug.LogError($"Invalid color string: {hexColor}");
         }
     }
-    
+
     public void setPlacementPreviewColor(string hexColor)
     {
         if (ColorUtility.TryParseHtmlString(hexColor, out Color parsedColor))
@@ -98,7 +99,7 @@ public class Settings : MonoBehaviour
     {
         placementPreview = value;
     }
-    
+
     public void setHalfPlacement(bool value)
     {
         halfPlacement = value;

@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using Utility;
 
 public class DebugController : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class DebugController : MonoBehaviour
     bool debugPanel = false;
     public static DebugCommand HELP;
     public static DebugCommand<string> COLOR;
+    public static DebugCommand<string> SCOLOR;
     public static DebugCommand<string> MODE;
     public static DebugCommand<bool> PGP;
     public static DebugCommand<string> PGPC;
@@ -23,24 +25,35 @@ public class DebugController : MonoBehaviour
         HELP = new DebugCommand("help", "Show help", "help", () => { showHelp = !showHelp; });
         COLOR = new DebugCommand<string>("color", "Sets color to a Hex value", "color <hex_value> (no # needed)", (x) =>
         {
-            Settings.Instance.setColor("#" + x);
-            Debug.Log("Color set to " + x);
+            Color color = HelperFunctions.ParseExternalColor(x);
+            Settings.Instance.setColor(color);
+            Debug.Log("Color set to " + color);
         });
+        SCOLOR = new DebugCommand<string>("scolor", "select the color with the objecs get selected with",
+            "scolor <hex_value> (no # needed)",
+            (x) =>
+            {
+                Color color = HelperFunctions.ParseExternalColor(x);
+                Settings.Instance.setSelectColor(color);
+                Debug.Log("SelectColor set to " + color);
+            });
         MODE = new DebugCommand<string>("mode", "set mode to block break or paint", "mode <mode>", (x) =>
         {
             Settings.Instance.setMode(x);
             Debug.Log("Mode set to " + x);
         });
-        PGPC = new DebugCommand<string>("pgpc", "sets the Placement Grid Preview Color", "pgpc <hex_value> (no # needed)", (x) =>
-        {
-            Settings.Instance.setPlacementGridPreviewColor("#" + x);
-            Debug.Log("PGPC set to " + x);
-        });
-        PPC = new DebugCommand<string>("ppc", "sets the Placement Preview Color", "ppc <hex_value> (no # needed)", (x) =>
-        {
-            Settings.Instance.setPlacementPreviewColor("#" + x);
-            Debug.Log("PPC set to " + x);
-        });
+        PGPC = new DebugCommand<string>("pgpc", "sets the Placement Grid Preview Color",
+            "pgpc <hex_value> (no # needed)", (x) =>
+            {
+                Settings.Instance.setPlacementGridPreviewColor("#" + x);
+                Debug.Log("PGPC set to " + x);
+            });
+        PPC = new DebugCommand<string>("ppc", "sets the Placement Preview Color", "ppc <hex_value> (no # needed)",
+            (x) =>
+            {
+                Settings.Instance.setPlacementPreviewColor("#" + x);
+                Debug.Log("PPC set to " + x);
+            });
         PGP = new DebugCommand<bool>("pgp", "toggles the Placement Preview", "pgp <true/false>", (x) =>
         {
             Settings.Instance.setPlacementGridPreview(x);
@@ -51,17 +64,19 @@ public class DebugController : MonoBehaviour
             Settings.Instance.setPlacementPreview(x);
             Debug.Log("PP set to " + x);
         });
-        halfPlacement = new DebugCommand<bool>("halfPlacement", "toggles the half Placement", "halfPlacement <true/false>", (x) =>
-        {
-            Settings.Instance.setHalfPlacement(x);
-            Debug.Log("halfPlacement set to " + x);
-        });
-        
-        
+        halfPlacement = new DebugCommand<bool>("halfPlacement", "toggles the half Placement",
+            "halfPlacement <true/false>", (x) =>
+            {
+                Settings.Instance.setHalfPlacement(x);
+                Debug.Log("halfPlacement set to " + x);
+            });
+
+
         commandList = new List<object>
         {
             HELP,
             COLOR,
+            SCOLOR,
             MODE,
             PGPC,
             PPC,
@@ -100,9 +115,11 @@ public class DebugController : MonoBehaviour
                         GUI.Label(labelRect, label);
                     }
                 }
+
                 GUI.EndScrollView();
                 y += 100;
             }
+
             GUI.Box(new Rect(0f, y, Screen.width, 30f), "");
             GUI.backgroundColor = new Color(0, 0, 0, 0);
             input = GUI.TextField(new Rect(10f, y + 5f, Screen.width - 20f, 20f), input);
@@ -118,11 +135,14 @@ public class DebugController : MonoBehaviour
     private void HandleInput()
     {
         string[] properties = input.Split(' ');
+        if (properties.Length == 0) return;
+
+        string commandToken = properties[0];
+
         for (int i = 0; i < commandList.Count; i++)
         {
             DebugCommandBase commandBase = commandList[i] as DebugCommandBase;
-
-            if (input.Contains(commandBase.commandId))
+            if (commandToken.Equals(commandBase.commandId, System.StringComparison.OrdinalIgnoreCase))
             {
                 switch (commandList[i])
                 {
