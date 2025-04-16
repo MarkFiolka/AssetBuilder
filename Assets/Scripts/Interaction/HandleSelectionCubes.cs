@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
+using Utility;
 
-namespace DefaultNamespace
+namespace Interaction
 {
-    public class SelectCubes : MonoBehaviour
+    public class HandleSelectionCubes : MonoBehaviour
     {
         public void HandleHitCube(RaycastHit hit)
         {
@@ -28,5 +29,25 @@ namespace DefaultNamespace
                 }
             }
         }
+
+        public void DeselectAllSelectedCubes()
+        {
+            foreach (GameObject cube in ObjectRepository.selectedCubes)
+            {
+                Renderer rend = cube.GetComponent<Renderer>();
+                if (ObjectRepository.originalCubeColors.TryGetValue(cube, out Color origColor))
+                {
+                    rend.material.color = origColor;
+                }
+                else
+                {
+                    Logger.LogWarning($"Original color not found for {cube.name}.");
+                }
+            }
+    
+            ObjectRepository.selectedCubes.Clear();
+            ObjectRepository.originalCubeColors.Clear();
+        }
+
     }
 }

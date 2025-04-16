@@ -1,65 +1,68 @@
-using DefaultNamespace;
 using UnityEngine;
+using Utility;
 
-public class PositionGetter : MonoBehaviour
+namespace Interaction
 {
-    public float maxDistance = 100f;
-    private BlockPlacements bp;
-    private BlockBreaker bb;
-    private BlockColorer bc;
-    private SelectCubes sc;
-    
-    void Start()
+    public class PositionGetter : MonoBehaviour
     {
-        GetBlockPlacements();
-    }
+        public float maxDistance = 100f;
+        private BlockPlacements bp;
+        private BlockBreaker bb;
+        private BlockColorer bc;
+        private HandleSelectionCubes sc;
 
-    private void GetBlockPlacements()
-    {
-        bp = GameObject.FindObjectOfType<BlockPlacements>();
-        bb = GameObject.FindObjectOfType<BlockBreaker>();
-        bc = GameObject.FindObjectOfType<BlockColorer>();
-        sc = GameObject.FindObjectOfType<SelectCubes>();
-    }
-    
-    void Update()
-    {
-        if (Input.GetMouseButtonDown(0))
+        void Start()
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
+            GetBlockPlacements();
+        }
 
-            if (Physics.Raycast(ray, out hit, maxDistance))
+        private void GetBlockPlacements()
+        {
+            bp = GameObject.FindObjectOfType<BlockPlacements>();
+            bb = GameObject.FindObjectOfType<BlockBreaker>();
+            bc = GameObject.FindObjectOfType<BlockColorer>();
+            sc = FindObjectOfType<HandleSelectionCubes>();
+        }
+
+        void Update()
+        {
+            if (Input.GetMouseButtonDown(0))
             {
-                if (Settings.Instance.placeBlocks)
-                {
-                    if (bp != null)
-                    {
-                        bp.CalculatePlacement(hit);
-                    }
-                }
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                RaycastHit hit;
 
-                if (Settings.Instance.breakBlocks)
+                if (Physics.Raycast(ray, out hit, maxDistance))
                 {
-                    if (bb != null)
+                    if (Settings.Instance.placeBlocks)
                     {
-                        bb.CalculateBreaking(hit);
+                        if (bp != null)
+                        {
+                            bp.CalculatePlacement(hit);
+                        }
                     }
-                }
-                
-                if (Settings.Instance.colorBlocks)
-                {
-                    if (bc != null)
-                    {
-                        bc.CalculateColoring(hit);
-                    }
-                }
 
-                if (Settings.Instance.selectCubes)
-                {
-                    if (sc != null)
+                    if (Settings.Instance.breakBlocks)
                     {
-                        sc.HandleHitCube(hit);
+                        if (bb != null)
+                        {
+                            bb.CalculateBreaking(hit);
+                        }
+                    }
+
+                    if (Settings.Instance.paintBlocks)
+                    {
+                        if (bc != null)
+                        {
+                            bc.CalculateColoring(hit);
+                        }
+                    }
+
+                    if (Settings.Instance.selectCubes)
+                    {
+                        if (sc != null)
+                        {
+                            sc.HandleHitCube(hit);
+                        }
                     }
                 }
             }

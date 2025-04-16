@@ -638,14 +638,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 647b94845a631aa468dded2527f8ca67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  faceTileSize: 1
-  faceTileOffset: 0.001
-  ghostScale: 1
-  threshold: 0.222
-  positionCheckTolerance: 0.001
-  faceTileColor: {r: 1, g: 1, b: 0, a: 0.35}
-  ghostColor: {r: 1, g: 1, b: 1, a: 0.3}
-  ghostBlockedColor: {r: 1, g: 0, b: 0, a: 0.3}
 --- !u!114 &1110993522
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -667,7 +659,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1110993504}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97f53382d0e3495cbe4ce67b94b7b355, type: 3}
+  m_Script: {fileID: 11500000, guid: 3c8d639c7f04257468250f198026d61e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807

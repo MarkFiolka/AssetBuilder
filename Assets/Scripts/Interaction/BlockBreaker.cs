@@ -1,12 +1,16 @@
 using UnityEngine;
+using Utility;
 
-public class BlockBreaker : MonoBehaviour
+namespace Interaction
 {
-    public void CalculateBreaking(RaycastHit hit)
+    public class BlockBreaker : MonoBehaviour
     {
-        GameObject obj = hit.transform.gameObject;
-        
-        ObjectRepository.cubes.Remove(obj);
-        Destroy(obj);
+        public void CalculateBreaking(RaycastHit hit)
+        {
+            GameObject obj = hit.transform.gameObject;
+
+            ObjectRepository.cubes.Remove(obj);
+            Destroy(obj);
+        }
     }
 }

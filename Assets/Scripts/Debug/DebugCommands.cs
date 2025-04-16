@@ -1,49 +1,67 @@
 using UnityEngine;
 using System;
-public class DebugCommandBase
+
+namespace Debug
 {
-    private string _commandId;
-    private string _commandDescription;
-    private string _commandFormat;
-
-    public string commandId { get { return _commandId; } }
-    public string commandDescription { get { return _commandDescription; } }
-    public string commandFormat { get { return _commandFormat; } }
-
-    public DebugCommandBase(string id, string description, string format)
+    public class DebugCommandBase
     {
-        _commandId = id;
-        _commandDescription = description;
-        _commandFormat = format;
-    }
-}
+        private string _commandId;
+        private string _commandDescription;
+        private string _commandFormat;
 
-public class DebugCommand : DebugCommandBase
-{
-    private Action command;
-    
-    public DebugCommand(string id, string description, string format, Action command) : base(id, description, format)
-    {
-        this.command = command;
-    }
+        public string commandId
+        {
+            get { return _commandId; }
+        }
 
-    public void Invoke()
-    {
-        command.Invoke();
-    }
-}
+        public string commandDescription
+        {
+            get { return _commandDescription; }
+        }
 
-public class DebugCommand<T1> : DebugCommandBase
-{
-    private Action<T1> command;
-    
-    public DebugCommand(string id, string description, string format, Action<T1> command) : base(id, description, format)
-    {
-        this.command = command;
+        public string commandFormat
+        {
+            get { return _commandFormat; }
+        }
+
+        public DebugCommandBase(string id, string description, string format)
+        {
+            _commandId = id;
+            _commandDescription = description;
+            _commandFormat = format;
+        }
     }
 
-    public void Invoke(T1 value)
+    public class DebugCommand : DebugCommandBase
     {
-        command.Invoke(value);
+        private Action command;
+
+        public DebugCommand(string id, string description, string format, Action command) : base(id, description,
+            format)
+        {
+            this.command = command;
+        }
+
+        public void Invoke()
+        {
+            command.Invoke();
+        }
     }
+
+    public class DebugCommand<T1> : DebugCommandBase
+    {
+        private Action<T1> command;
+
+        public DebugCommand(string id, string description, string format, Action<T1> command) : base(id, description,
+            format)
+        {
+            this.command = command;
+        }
+
+        public void Invoke(T1 value)
+        {
+            command.Invoke(value);
+        }
+    }
+
 }

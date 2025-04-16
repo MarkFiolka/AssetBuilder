@@ -1,53 +1,56 @@
 using UnityEngine;
+using Utility;
 
-public class BlockColorer : MonoBehaviour
+namespace Interaction
 {
-    public void CalculateColoring(RaycastHit hit)
+    public class BlockColorer : MonoBehaviour
     {
-        GameObject obj = hit.collider.gameObject;
-        Renderer rend = obj.GetComponent<Renderer>();
+        public void CalculateColoring(RaycastHit hit)
+        {
+            GameObject obj = hit.collider.gameObject;
+            Renderer rend = obj.GetComponent<Renderer>();
 
-        // Use object name or tag for the switch
-        switch (obj.name)
-        {
-            case "cube":
-                ColorCube(rend);
-                break;
-            case "plane":
-                ColorPlanes(rend);
-                break;
-            case "miniPlane":
-                ColorMiniPlanes(rend);
-                break;
-            default:
-                Debug.Log("No valid object found to color.");
-                break;
+            switch (obj.name)
+            {
+                case "cube":
+                    ColorCube(rend);
+                    break;
+                case "plane":
+                    ColorPlanes(rend);
+                    break;
+                case "miniPlane":
+                    ColorMiniPlanes(rend);
+                    break;
+                default:
+                    UnityEngine.Debug.Log("No valid object found to color.");
+                    break;
+            }
         }
-    }
 
-    private void ColorCube(Renderer rend)
-    {
-        if (rend != null)
+        private void ColorCube(Renderer rend)
         {
-            rend.material.color = Settings.Instance.color;
+            if (rend != null)
+            {
+                rend.material.color = Settings.Instance.color;
+            }
         }
-    }
-    
-    private void ColorPlanes(Renderer rend)
-    {
-        if (rend != null)
+
+        private void ColorPlanes(Renderer rend)
         {
-            rend.material.color = Settings.Instance.color;
-            //add ways to color parent -> childs
+            if (rend != null)
+            {
+                rend.material.color = Settings.Instance.color;
+                //add ways to color parent -> childs
+            }
         }
-    }
-    
-    private void ColorMiniPlanes(Renderer rend)
-    {
-        if (rend != null)
+
+        private void ColorMiniPlanes(Renderer rend)
         {
-            rend.material.color = Settings.Instance.color;
-            //add ways to color parent -> parent -> childs
+            if (rend != null)
+            {
+                rend.material.color = Settings.Instance.color;
+                //add ways to color parent -> parent -> childs
+            }
         }
     }
 }
