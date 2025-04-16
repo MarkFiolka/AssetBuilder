@@ -59,7 +59,7 @@ public class PositionGetter : MonoBehaviour
                 {
                     if (sc != null)
                     {
-                        //add cubes to selected list
+                        sc.HandleHitCube(hit);
                     }
                 }
             }

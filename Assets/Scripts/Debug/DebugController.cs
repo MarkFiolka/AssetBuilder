@@ -121,26 +121,26 @@ public class DebugController : MonoBehaviour
         for (int i = 0; i < commandList.Count; i++)
         {
             DebugCommandBase commandBase = commandList[i] as DebugCommandBase;
+
             if (input.Contains(commandBase.commandId))
             {
-                if (commandList[i] as DebugCommand != null)
+                switch (commandList[i])
                 {
-                    (commandList[i] as DebugCommand).Invoke();
-                }
-                else if (commandList[i] as DebugCommand<int> != null)
-                {
-                    (commandList[i] as DebugCommand<int>).Invoke(int.Parse(properties[1]));
-                }
-                else if (commandList[i] as DebugCommand<string> != null)
-                {
-                    (commandList[i] as DebugCommand<string>).Invoke(properties[1].ToString());
-                }
-                else if (commandList[i] as DebugCommand<bool> != null)
-                {
-                    if (bool.TryParse(properties[1], out bool parsedBool))
-                    {
-                        (commandList[i] as DebugCommand<bool>).Invoke(parsedBool);
-                    }
+                    case DebugCommand debugCommand:
+                        debugCommand.Invoke();
+                        break;
+                    case DebugCommand<int> debugCommandInt:
+                        debugCommandInt.Invoke(int.Parse(properties[1]));
+                        break;
+                    case DebugCommand<string> debugCommandString:
+                        debugCommandString.Invoke(properties[1]);
+                        break;
+                    case DebugCommand<bool> debugCommandBool:
+                        if (bool.TryParse(properties[1], out bool parsedBool))
+                        {
+                            debugCommandBool.Invoke(parsedBool);
+                        }
+                        break;
                 }
             }
         }

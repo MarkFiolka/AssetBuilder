@@ -8,7 +8,7 @@ namespace DefaultNamespace
         {
             if (hit.collider.gameObject.name == "cube")
             {
-                ObjectRepository.selectedCubes.Add(hit.collider.gameObject);
+                //ObjectRepository.selectedCubes.Add(hit.collider.gameObject);
             }
         }
     }

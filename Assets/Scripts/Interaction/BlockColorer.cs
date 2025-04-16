@@ -37,7 +37,8 @@ public class BlockColorer : MonoBehaviour
     {
         if (rend != null)
         {
-            
+            rend.material.color = Settings.Instance.color;
+            //add ways to color parent -> childs
         }
     }
     
@@ -45,7 +46,8 @@ public class BlockColorer : MonoBehaviour
     {
         if (rend != null)
         {
-            
+            rend.material.color = Settings.Instance.color;
+            //add ways to color parent -> parent -> childs
         }
     }
 }
