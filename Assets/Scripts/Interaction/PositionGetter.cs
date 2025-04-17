@@ -13,59 +13,27 @@ namespace Interaction
 
         void Start()
         {
-            GetBlockPlacements();
-        }
-
-        private void GetBlockPlacements()
-        {
-            bp = GameObject.FindObjectOfType<BlockPlacements>();
-            bb = GameObject.FindObjectOfType<BlockBreaker>();
-            bc = GameObject.FindObjectOfType<BlockColorer>();
+            bp = FindObjectOfType<BlockPlacements>();
+            bb = FindObjectOfType<BlockBreaker>();
+            bc = FindObjectOfType<BlockColorer>();
             sc = FindObjectOfType<HandleSelectionCubes>();
         }
 
         void Update()
         {
-            if (Input.GetMouseButtonDown(0))
-            {
-                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                RaycastHit hit;
+            if (!Input.GetMouseButtonDown(0)) return;
+            if (!Settings.Instance.placeBlocks && !Settings.Instance.breakBlocks && !Settings.Instance.paintBlocks)
+                return; // selection handled in HandleSelectionCubes
 
-                if (Physics.Raycast(ray, out hit, maxDistance))
-                {
-                    if (Settings.Instance.placeBlocks)
-                    {
-                        if (bp != null)
-                        {
-                            bp.CalculatePlacement(hit);
-                        }
-                    }
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (!Physics.Raycast(ray, out var hit, maxDistance)) return;
 
-                    if (Settings.Instance.breakBlocks)
-                    {
-                        if (bb != null)
-                        {
-                            bb.CalculateBreaking(hit);
-                        }
-                    }
-
-                    if (Settings.Instance.paintBlocks)
-                    {
-                        if (bc != null)
-                        {
-                            bc.CalculateColoring(hit);
-                        }
-                    }
-
-                    if (Settings.Instance.selectCubes)
-                    {
-                        if (sc != null)
-                        {
-                            sc.HandleHitCube(hit);
-                        }
-                    }
-                }
-            }
+            if (Settings.Instance.placeBlocks && bp != null)
+                bp.CalculatePlacement(hit);
+            if (Settings.Instance.breakBlocks && bb != null)
+                bb.CalculateBreaking(hit);
+            if (Settings.Instance.paintBlocks && bc != null)
+                bc.CalculateColoring(hit);
         }
     }
 }

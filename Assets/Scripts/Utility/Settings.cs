@@ -11,7 +11,7 @@ namespace Utility
         public Color placementGridPreviewColor { get; set; } = new Color(1f, 1f, 0f, 0.35f);
         public Color placementPreviewColor { get; set; } = new Color(1f, 1f, 1f, 0.3f);
         public Color placementPreviewColorBlocked { get; set; } = new Color(1f, 0f, 0f, 0.3f);
-        public Color selectColor { get; set; } = Color.magenta;
+        public Color selectColor { get; set; } = Color.yellow;
         public bool placementGridPreview { get; set; } = false;
         public bool placeBlocks { get; set; } = false;
         public bool breakBlocks { get; set; } = false;
@@ -19,6 +19,7 @@ namespace Utility
         public bool placementPreview { get; set; } = false;
         public bool halfPlacement { get; set; } = false;
         public bool selectCubes { get; set; } = false;
+        public bool isMoving { get; set; } = false;
 
 
         private void Awake()
