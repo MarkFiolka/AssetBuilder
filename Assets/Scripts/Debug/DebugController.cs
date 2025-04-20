@@ -73,7 +73,7 @@ namespace Debug
                     Logger.Log("PPC set to " + x);
                 });
             
-            PPCB = new DebugCommand<string>("ppc", "sets the Placement Preview Color", "ppc <hex_value> (no # needed)",
+            PPCB = new DebugCommand<string>("ppcb", "sets the Placement Preview Color Blocked", "ppc <hex_value> (no # needed)",
                 (x) =>
                 {
                     Settings.Instance.SetPlacementPreviewColorBlocked("#" + x);
@@ -120,6 +120,24 @@ namespace Debug
             {
                 debugPanel = !debugPanel;
             }
+            
+            /*
+            if (Input.GetKeyDown(KeyCode.I))
+            {
+                Logger.Log("Selected Elements: " + ObjectRepository.selectedCubes.Count);
+            }
+            
+            if (Input.GetKeyDown(KeyCode.K))
+            {
+                for (int i = ObjectRepository.selectedCubes.Count - 1; i >= 0; i--)
+                {
+                    var obj = ObjectRepository.selectedCubes[i];
+                    Destroy(obj);
+                    ObjectRepository.selectedCubes.RemoveAt(i);
+                }
+                ObjectRepository.originalCubeColors.Clear();
+            }
+            */
         }
 
         private void OnGUI()

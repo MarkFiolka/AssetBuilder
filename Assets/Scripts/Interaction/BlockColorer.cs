@@ -22,7 +22,7 @@ namespace Interaction
                     ColorMiniPlanes(rend);
                     break;
                 default:
-                    UnityEngine.Debug.Log("No valid object found to color.");
+                    Logger.Log("No valid object found to color.");
                     break;
             }
         }

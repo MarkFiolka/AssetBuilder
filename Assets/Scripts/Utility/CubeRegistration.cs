@@ -6,12 +6,12 @@ namespace Utility
     {
         void Awake()
         {
-            ObjectRepository.Register(gameObject);
+            ObjectRepository.RegisterCube(gameObject);
         }
 
         void OnDestroy()
         {
-            ObjectRepository.Unregister(gameObject);
+            ObjectRepository.UnregisterCube(gameObject);
         }
     }
 }

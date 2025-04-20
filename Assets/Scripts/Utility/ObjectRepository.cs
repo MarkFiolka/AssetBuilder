@@ -11,13 +11,13 @@ namespace Utility
         public static readonly List<GameObject> selectedCubes = new List<GameObject>();
         public static readonly Dictionary<GameObject, Color> originalCubeColors = new Dictionary<GameObject, Color>();
         
-        public static void Register(GameObject cube)
+        public static void RegisterCube(GameObject cube)
         {
             if (!cubes.Contains(cube))
                 cubes.Add(cube);
         }
 
-        public static void Unregister(GameObject cube)
+        public static void UnregisterCube(GameObject cube)
         {
             cubes.Remove(cube);
             selectedCubes.Remove(cube);
