@@ -3,7 +3,7 @@ using Utility;
 
 namespace Interaction
 {
-    public class BlockColorer : MonoBehaviour
+    public class BlockPainter : MonoBehaviour
     {
         public void CalculateColoring(RaycastHit hit)
         {
@@ -14,9 +14,6 @@ namespace Interaction
             {
                 case "cube":
                     ColorCube(rend);
-                    break;
-                case "plane":
-                    ColorPlanes(rend);
                     break;
                 case "miniPlane":
                     ColorMiniPlanes(rend);
@@ -32,15 +29,6 @@ namespace Interaction
             if (rend != null)
             {
                 rend.material.color = Settings.Instance.color;
-            }
-        }
-
-        private void ColorPlanes(Renderer rend)
-        {
-            if (rend != null)
-            {
-                rend.material.color = Settings.Instance.color;
-                //add ways to color parent -> childs
             }
         }
 

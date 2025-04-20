@@ -22,6 +22,9 @@ namespace Debug
         public static DebugCommand<string> PPC;
         public static DebugCommand<string> PPCB;
         public static DebugCommand<bool> halfPlacement;
+        public static DebugCommand<string> paintSelected;
+        public static DebugCommand breakSelected;
+        
         public List<object> commandList;
         private Vector2 scroll = Vector2.zero;
 
@@ -99,6 +102,17 @@ namespace Debug
                     Logger.Log("halfPlacement set to " + x);
                 });
 
+            breakSelected = new DebugCommand("breakSelected", "removes the selected object", "breakSelected", () =>
+            {
+                BreakSelected.BreakSelectedBlocks();
+            });
+            
+            paintSelected = new DebugCommand<string>("paintSelected", "repaints the selected object", "paintSelected", (x) =>
+            {
+                PaintSelected.RepaintSelectedBlocks(x);
+            });
+            
+
             commandList = new List<object>
             {
                 HELP,
@@ -110,7 +124,9 @@ namespace Debug
                 PPCB,
                 PGP,
                 PP,
-                halfPlacement
+                halfPlacement,
+                breakSelected,
+                paintSelected
             };
         }
 
@@ -120,24 +136,6 @@ namespace Debug
             {
                 debugPanel = !debugPanel;
             }
-            
-            /*
-            if (Input.GetKeyDown(KeyCode.I))
-            {
-                Logger.Log("Selected Elements: " + ObjectRepository.selectedCubes.Count);
-            }
-            
-            if (Input.GetKeyDown(KeyCode.K))
-            {
-                for (int i = ObjectRepository.selectedCubes.Count - 1; i >= 0; i--)
-                {
-                    var obj = ObjectRepository.selectedCubes[i];
-                    Destroy(obj);
-                    ObjectRepository.selectedCubes.RemoveAt(i);
-                }
-                ObjectRepository.originalCubeColors.Clear();
-            }
-            */
         }
 
         private void OnGUI()
