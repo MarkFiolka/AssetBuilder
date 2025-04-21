@@ -1,7 +1,5 @@
-﻿// File: SpawnCubes.cs
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using Utility;
 
 namespace Utility
 {
@@ -33,7 +31,7 @@ namespace Utility
             cube.tag = "cube";
             cube.name = "cube";
             cube.AddComponent<CubeRegistration>();
-
+            
             var mr = cube.GetComponent<MeshRenderer>();
             mr.material.color = Settings.Instance.color;
 

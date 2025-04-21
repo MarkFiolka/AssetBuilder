@@ -1,4 +1,3 @@
-// File: BlockPlacements.cs
 using UnityEngine;
 using Utility;
 
@@ -44,7 +43,7 @@ namespace Interaction
             cube.transform.position = spawnPos;
             cube.tag = "cube";
             cube.name = "cube";
-            cube.AddComponent<Utility.CubeRegistration>();
+            cube.AddComponent<CubeRegistration>();
 
             var mr = cube.GetComponent<MeshRenderer>();
             mr.material.color = Settings.Instance.color;

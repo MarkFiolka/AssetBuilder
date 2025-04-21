@@ -10,6 +10,7 @@ namespace Interaction
             GameObject obj = hit.transform.gameObject;
 
             ObjectRepository.cubes.Remove(obj);
+            
             Destroy(obj);
         }
     }
