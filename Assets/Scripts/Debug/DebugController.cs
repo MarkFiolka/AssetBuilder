@@ -23,6 +23,12 @@ namespace Debug
         public static DebugCommand<string> PPCB;
         public static DebugCommand<bool> halfPlacement;
         public static DebugCommand<string> paintSelected;
+        public static DebugCommand<int> moveSelectedX;
+        public static DebugCommand<int> moveSelectedY;
+        public static DebugCommand<int> moveSelectedZ;
+        public static DebugCommand<int> rotateAroundX;
+        public static DebugCommand<int> rotateAroundY;
+        public static DebugCommand<int> rotateAroundZ;
         public static DebugCommand breakSelected;
         
         public List<object> commandList;
@@ -112,6 +118,38 @@ namespace Debug
                 PaintSelected.RepaintSelectedBlocks(x);
             });
             
+            moveSelectedX = new DebugCommand<int>("moveSelectedX", "moves the selected object towards x", "moveSelectedX", (x) =>
+            {
+                MoveSelected.MoveTowardsX(x);
+            });
+            
+            moveSelectedY = new DebugCommand<int>("moveSelectedY", "moves the selected object towards y", "moveSelectedY", (x) =>
+            {
+                MoveSelected.MoveTowardsY(x);
+            });
+            
+            moveSelectedZ = new DebugCommand<int>("moveSelectedZ", "moves the selected object towards z", "moveSelectedZ", (x) =>
+            {
+                MoveSelected.MoveTowardsZ(x);
+            });
+            
+            rotateAroundX = new DebugCommand<int>("rotateAroundX", "rotates the selected object around x", "rotateAroundX", (x) =>
+            {
+                RotateSelected.RotateAroundX(x);
+            });
+            
+            rotateAroundY = new DebugCommand<int>("rotateAroundY", "rotates the selected object around y", "rotateAroundY", (x) =>
+            {
+                RotateSelected.RotateAroundY(x);
+            });
+            
+            rotateAroundZ = new DebugCommand<int>("rotateAroundZ", "rotates the selected object around z", "rotateAroundZ", (x) =>
+            {
+                RotateSelected.RotateAroundZ(x);
+            });
+            
+            
+            
 
             commandList = new List<object>
             {
@@ -126,7 +164,13 @@ namespace Debug
                 PP,
                 halfPlacement,
                 breakSelected,
-                paintSelected
+                paintSelected,
+                moveSelectedX,
+                moveSelectedY,
+                moveSelectedZ,
+                rotateAroundX,
+                rotateAroundY,
+                rotateAroundZ,
             };
         }
 
