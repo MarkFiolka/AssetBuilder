@@ -4,7 +4,7 @@ using Utility;
 
 namespace Optimizing
 {
-    public class Exchangecubes : MonoBehaviour
+    public class ExchangeCubes : MonoBehaviour
     {
         private GameObject szeneContent;
 
@@ -13,22 +13,28 @@ namespace Optimizing
             szeneContent = GameObject.Find("SzeneContainer");
         }
 
-        void Update()
+        public void RunOptimizationProcessCubeExchange()
         {
-            if (Input.GetKeyDown(KeyCode.Keypad1))
-            {
-                ProcessCubeExchange();
-            }
+            ProcessCubeExchange();
         }
 
         private void ProcessCubeExchange()
         {
-            foreach (GameObject cube in new List<GameObject>(ObjectRepository.cubes))
+            var saveList = new List<GameObject>();
+            
+            foreach (var cube in ObjectRepository.cubes)
             {
                 if (cube != null && cube.name == "cube")
                 {
+                    saveList.Add(cube);
                     ExchangeCube(cube);
                 }
+            }
+
+            foreach (var obj in saveList)
+            {
+                ObjectRepository.UnregisterCube(obj);
+                Destroy(obj);
             }
         }
 
@@ -58,9 +64,6 @@ namespace Optimizing
             planey.transform.rotation = Quaternion.Euler(cubeEuler.x, cubeEuler.y, cubeEuler.z - 180);
             planeZ.transform.rotation = Quaternion.Euler(cubeEuler.x - 90, cubeEuler.y, cubeEuler.z + 180);
             planez.transform.rotation = Quaternion.Euler(cubeEuler.x - 90, cubeEuler.y, cubeEuler.z);
-
-            ObjectRepository.cubes.Remove(cube);
-            Destroy(cube);
 
             ObjectRepository.planes.Add(planeX);
             ObjectRepository.planes.Add(planex);

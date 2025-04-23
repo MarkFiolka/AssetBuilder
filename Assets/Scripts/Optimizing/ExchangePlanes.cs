@@ -6,12 +6,9 @@ namespace Optimizing
 {
     public class ExchangePlanes : MonoBehaviour
     {
-        void Update()
+        public void RunOptimizationPlaneExchange()
         {
-            if (Input.GetKeyDown(KeyCode.Keypad2))
-            {
-                ProcessPlaneExchange();
-            }
+            ProcessPlaneExchange();
         }
 
         private void ProcessPlaneExchange()
@@ -75,5 +72,4 @@ namespace Optimizing
             return miniPlane;
         }
     }
-
 }

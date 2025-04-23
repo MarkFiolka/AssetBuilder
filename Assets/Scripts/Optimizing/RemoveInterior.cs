@@ -6,12 +6,9 @@ namespace Optimizing
 {
     public class RemoveInterior : MonoBehaviour
     {
-        void Update()
+        public void RunOptimizationRemoveInteriorPlanesWithinMesh()
         {
-            if (Input.GetKeyDown(KeyCode.Keypad3))
-            {
-                RemoveInteriorPlanesWithinMesh();
-            }
+            RemoveInteriorPlanesWithinMesh();
         }
 
         void RemoveInteriorPlanesWithinMesh()

@@ -13,6 +13,14 @@ namespace Utility
             string sanitizedHex = "#" + hexColor.Trim().TrimStart('#');
             return ColorUtility.TryParseHtmlString(sanitizedHex, out Color parsedColor) ? parsedColor : Color.magenta;
         }
+        
+        public static Color HexToColor(string hex)
+        {
+            if (ColorUtility.TryParseHtmlString(hex, out Color color))
+                return color;
+            else
+                throw new System.Exception("Invalid hex color format: " + hex);
+        }
 
         public static void DisableAllModes()
         {

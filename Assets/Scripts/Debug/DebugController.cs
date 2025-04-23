@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using System.Collections.Generic;
 using Interaction;
-using Unity.VisualScripting;
+using Optimizing;
 using Utility;
 
 namespace Debug
@@ -30,6 +30,8 @@ namespace Debug
         public static DebugCommand<int> rotateAroundY;
         public static DebugCommand<int> rotateAroundZ;
         public static DebugCommand breakSelected;
+        public static DebugCommand startOptimize;
+        public static DebugCommand revertOptimize;
         
         public List<object> commandList;
         private Vector2 scroll = Vector2.zero;
@@ -148,6 +150,16 @@ namespace Debug
                 RotateSelected.RotateAroundZ(x);
             });
             
+            startOptimize = new DebugCommand("startOptimize", "removes the selected object", "startOptimize", () =>
+            {
+                Optimize.StartOptimization();
+            });
+            
+            revertOptimize = new DebugCommand("revertOptimize", "removes the selected object", "revertOptimize", () =>
+            {
+                Optimize.RevertOptimization();
+            });
+            
             
             
 
@@ -171,6 +183,8 @@ namespace Debug
                 rotateAroundX,
                 rotateAroundY,
                 rotateAroundZ,
+                startOptimize,
+                revertOptimize
             };
         }
 
