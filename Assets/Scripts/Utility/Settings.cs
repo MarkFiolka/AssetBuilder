@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Rendering;
 
 namespace Utility
 {
@@ -15,11 +14,14 @@ namespace Utility
         public bool placementGridPreview { get; set; } = false;
         public bool placeBlocks { get; set; } = false;
         public bool breakBlocks { get; set; } = false;
+        public bool selectBlocks { get; set; } = false;
+
         public bool paintBlocks { get; set; } = false;
         public bool placementPreview { get; set; } = false;
         public bool halfPlacement { get; set; } = false;
-        public bool selectCubes { get; set; } = false;
         public bool isMoving { get; set; } = false;
+        public bool isDragging { get; set; } = false;
+        public bool clickedOnBlock { get; set; } = false;
 
 
         private void Awake()
@@ -32,29 +34,6 @@ namespace Utility
             else
             {
                 Destroy(gameObject);
-            }
-        }
-
-        public void SetMode(Mode mode)
-        {
-            placeBlocks = breakBlocks = paintBlocks = selectCubes = false;
-
-            HelperFunctions.DisableAllModes();
-
-            switch (mode)
-            {
-                case Mode.PLACE:
-                    placeBlocks = true;
-                    break;
-                case Mode.BREAK:
-                    breakBlocks = true;
-                    break;
-                case Mode.PAINT:
-                    paintBlocks = true;
-                    break;
-                case Mode.SELECT:
-                    selectCubes = true;
-                    break;
             }
         }
 
@@ -91,7 +70,7 @@ namespace Utility
                 Logger.LogError($"Invalid color string: {hexColor}");
             }
         }
-        
+
         public void SetPlacementPreviewColorBlocked(string hexColor)
         {
             if (ColorUtility.TryParseHtmlString(hexColor, out Color parsedColor))
@@ -117,6 +96,26 @@ namespace Utility
         public void SetHalfPlacement(bool value)
         {
             halfPlacement = value;
+        }
+
+        public void SetPlaceBlocksToggle(bool value)
+        {
+            placeBlocks = value;
+        }
+
+        public void SetPaintBlocksToggle(bool value)
+        {
+            paintBlocks = value;
+        }
+
+        public void SetBreakBlocksToggle(bool value)
+        {
+            breakBlocks = value;
+        }
+
+        public void SetSelectBlocksToggle(bool value)
+        {
+            selectBlocks = value;
         }
     }
 }

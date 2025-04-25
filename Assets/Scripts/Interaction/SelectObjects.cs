@@ -17,7 +17,7 @@ public class SelectObjects : MonoBehaviour
 
     private void Update()
     {
-        if (!Settings.Instance.selectCubes || Settings.Instance.isMoving)
+        if (!Settings.Instance.selectBlocks || Settings.Instance.isMoving)
             return;
 
         if (Input.GetMouseButtonDown(0) && !IsPointerOverUI())
@@ -37,7 +37,7 @@ public class SelectObjects : MonoBehaviour
 
     private void OnGUI()
     {
-        if (!_dragging || !Settings.Instance.selectCubes || Settings.Instance.isMoving || IsPointerOverUI())
+        if (!_dragging || !Settings.Instance.selectBlocks || Settings.Instance.isMoving || IsPointerOverUI())
             return;
 
         Rect rect = Utils.GetScreenRect(_dragStart, Input.mousePosition);

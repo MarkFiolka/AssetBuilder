@@ -441,7 +441,6 @@ GameObject:
   - component: {fileID: 1110993516}
   - component: {fileID: 1110993517}
   - component: {fileID: 1110993518}
-  - component: {fileID: 1110993519}
   - component: {fileID: 1110993520}
   - component: {fileID: 1110993521}
   - component: {fileID: 1110993522}
@@ -554,18 +553,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bd1e8a4202e50864c9d203bd7799e2b6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1110993519
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1110993504}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9f8a5d824abc86949a955a998fb2343f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &1110993520
@@ -691,12 +678,11 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1775305851}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8e76b65f1d92415bbdce93966e44a34f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  toolIconsPath: ToolIcons
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

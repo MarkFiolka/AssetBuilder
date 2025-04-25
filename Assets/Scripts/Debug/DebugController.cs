@@ -3,6 +3,8 @@ using UnityEngine;
 using System.Collections.Generic;
 using Interaction;
 using Optimizing;
+using UnityEditor.Rendering;
+using UnityEngine.Rendering.Universal;
 using Utility;
 
 namespace Debug
@@ -13,9 +15,12 @@ namespace Debug
         bool showHelp = false;
         bool debugPanel = false;
         public static DebugCommand HELP;
+        public static DebugCommand<bool> togglePlacement;
+        public static DebugCommand<bool> toggleColoring;
+        public static DebugCommand<bool> toggleBreaking;
+        public static DebugCommand<bool> toggleSelection;
         public static DebugCommand<string> COLOR;
         public static DebugCommand<string> SCOLOR;
-        public static DebugCommand<string> MODE;
         public static DebugCommand<bool> PGP;
         public static DebugCommand<string> PGPC;
         public static DebugCommand<bool> PP;
@@ -40,6 +45,26 @@ namespace Debug
         {
             HELP = new DebugCommand("help", "Show help", "help", () => { showHelp = !showHelp; });
 
+            toggleBreaking = new DebugCommand<bool>("toggleBreaking", "toggles the Placement", "toggleBreaking <true/false>", (x) =>
+            {
+                Settings.Instance.SetBreakBlocksToggle(x);
+            });
+            
+            togglePlacement = new DebugCommand<bool>("togglePlacement", "toggles the Placement", "togglePlacement <true/false>", (x) =>
+            {
+                Settings.Instance.SetPlaceBlocksToggle(x);
+            });
+            
+            toggleColoring = new DebugCommand<bool>("toggleColoring", "toggles the Placement", "toggleColoring <true/false>", (x) =>
+            {
+                Settings.Instance.SetPaintBlocksToggle(x);
+            });
+            
+            toggleSelection = new DebugCommand<bool>("toggleSelection", "toggles the Placement", "toggleSelection <true/false>", (x) =>
+            {
+                Settings.Instance.SetSelectBlocksToggle(x);
+            });
+            
             COLOR = new DebugCommand<string>("color", "Sets color to a Hex value", "color <hex_value> (no # needed)",
                 (x) =>
                 {
@@ -56,19 +81,6 @@ namespace Debug
                     Settings.Instance.SetSelectColor(color);
                     Logger.Log("SelectColor set to " + color);
                 });
-
-            MODE = new DebugCommand<string>("mode", "set mode to block break or paint", "mode <mode>", (x) =>
-            {
-                if(Enum.TryParse<Utility.Mode>(x.Trim(), true, out Utility.Mode mode))
-                {
-                    Settings.Instance.SetMode(mode);
-                    Logger.Log("Mode set to " + mode.ToString());
-                }
-                else
-                {
-                    Logger.LogError("Invalid mode: " + x);
-                }
-            });
 
             PGPC = new DebugCommand<string>("pgpc", "sets the Placement Grid Preview Color",
                 "pgpc <hex_value> (no # needed)", (x) =>
@@ -160,15 +172,15 @@ namespace Debug
                 Optimize.RevertOptimization();
             });
             
-            
-            
-
             commandList = new List<object>
             {
                 HELP,
+                togglePlacement,
+                toggleBreaking,
+                toggleSelection,
+                toggleColoring,
                 COLOR,
                 SCOLOR,
-                MODE,
                 PGPC,
                 PPC,
                 PPCB,
@@ -262,7 +274,6 @@ namespace Debug
                             {
                                 debugCommandBool.Invoke(parsedBool);
                             }
-
                             break;
                     }
                 }

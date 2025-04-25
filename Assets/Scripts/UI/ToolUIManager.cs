@@ -9,7 +9,7 @@ namespace UI
         {
             { "place", "place" },
             { "select", "select" },
-            { "erase", "eraser" },
+            { "break", "eraser" },
             { "download", "download" },
             { "bucket", "bucket" },
         };
@@ -145,6 +145,7 @@ namespace UI
                 switch (selected.toolName)
                 {
                     case "place":
+                        
                         GUI.Label(new Rect(0, 30, 120, 20), "Size:");
                         float newValue = GUI.HorizontalSlider(new Rect(50, 30, 100, 20), 1.0f, 0.1f, 5.0f);
                         break;
@@ -153,15 +154,20 @@ namespace UI
                         GUI.Button(new Rect(0, 30, 120, 20), "Select Mode");
                         break;
 
-                    case "erase":
+                    case "break":
+                        //box break
+                        //layer break
                         GUI.Toggle(new Rect(0, 30, 150, 20), true, "Enable Eraser");
                         break;
 
                     case "bucket":
+                        //recolor similar
+                        //select color (color picker)
                         GUI.Button(new Rect(0, 30, 120, 20), "Color and Recolor Blocks in Szene");
                         break;
 
                     case "download":
+                        //download file
                         GUI.Label(new Rect(0, 30, 200, 20), "Download File");
                         break;
                 }

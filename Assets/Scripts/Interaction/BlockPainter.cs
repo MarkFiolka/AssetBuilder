@@ -9,19 +9,8 @@ namespace Interaction
         {
             GameObject obj = hit.collider.gameObject;
             Renderer rend = obj.GetComponent<Renderer>();
-
-            switch (obj.name)
-            {
-                case "cube":
-                    ColorCube(rend);
-                    break;
-                case "miniPlane":
-                    ColorMiniPlanes(rend);
-                    break;
-                default:
-                    Logger.Log("No valid object found to color.");
-                    break;
-            }
+            
+            ColorCube(rend);
         }
 
         private void ColorCube(Renderer rend)
@@ -29,15 +18,6 @@ namespace Interaction
             if (rend != null)
             {
                 rend.material.color = Settings.Instance.color;
-            }
-        }
-
-        private void ColorMiniPlanes(Renderer rend)
-        {
-            if (rend != null)
-            {
-                rend.material.color = Settings.Instance.color;
-                //add ways to color parent -> parent -> childs
             }
         }
     }
